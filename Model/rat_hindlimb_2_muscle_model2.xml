@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mujoco model="Rat Hindlimb Right">
+  <compiler inertiafromgeom="auto" angle="radian" balanceinertia="true" boundmass="0.001" boundinertia="0.001">
+    <lengthrange inttotal="50" useexisting="true"></lengthrange>
+  </compiler>
+  <default>
+    <joint limited="true" damping="0.5" armature="0.1" stiffness="2"></joint>
+    <geom rgba="0.8 0.6 .4 1" margin="0.001"></geom>
+    <site size="0.001"></site>
+    <tendon width="0.001" rgba=".95 .3 .3 1" limited="false"></tendon>
+    <default class="muscle">
+      <muscle ctrllimited="true" ctrlrange="0 1" ></muscle>
+    </default>
+    <default class="motor">
+      <general gainprm="5 0 0 0 0 0 0 0 0 0"></general>
+    </default>
+  </default>
+  <option timestep="0.000075"></option>
+  <size njmax="1000" nconmax="400" nuser_jnt="1"></size>
+  <worldbody>
+    <camera name="fixed" pos="0.02 -1.2 -0.03" xyaxes="1 0 0 0 .1 1.1"/>
+    <geom name="floor" pos="0 0 -0.5" size="10 10 0.125" type="plane" material="MatPlane" rgba="1 1 1 1" condim="3"></geom>
+    <body name="spine" pos="       0       -1 6.12323e-17" quat="0.7071067811865475 0.7071067811865475 0.0 0.0">
+      <light mode="trackcom" directional="false" pos="0 0 4.0" dir="0 0 -1"></light>
+      <geom name="spine" type="mesh" mesh="spine"></geom>
+      <inertial pos="       0        0        0" mass="0.12" fullinertia=" 4.8e-06  4.8e-06  4.8e-06        0        0        0"></inertial>
+      <body name="pelvis" pos="   0.005   -0.003     0.01" quat="1.0 0.0 0.0 0.0">
+        <geom name="pelvis" type="mesh" mesh="pelvis"></geom>
+        <inertial pos="       0        0        0" mass="0.02" fullinertia="   4e-06  3.5e-06  3.5e-06        0        0        0"></inertial>
+        
+		<site name="Hip_Ext_Pelvis" pos="-0.024199251041167  -0.000933954385910  -0.000003638250253"></site>
+        <site name="Hip_Flx_Pelvis" pos="0.034278843371281   0.001936363298852  -0.002889053521072"></site>
+		
+        <joint name="sacroiliac_flx" type="hinge" pos="0 0 0" axis="       0        0        1" limited="true" range="-0.0230125  -0.0230124" ref="0"></joint>
+        <body name="femur" pos="       0        0        0" quat="1.0 0.0 0.0 0.0">
+          <geom name="femur" type="mesh" mesh="femur"></geom>
+          <inertial pos="       0   -0.015        0" mass="0.02" fullinertia="1.62e-06  2.5e-07 1.62e-06        0        0        0"></inertial>
+          
+		  <site name="Hip_Ext_Femur" pos="-0.000164061557790  -0.009744455046850   0.000155782949626"></site>
+          <site name="Hip_Flx_Femur" pos="-0.000361799254514  -0.004927975980343   0.002877630717600"></site>
+		  
+          <joint name="hip_flx" type="hinge" pos="0 0 0" axis="       0        0        -1" limited="true" range="-0.872665  1.22173" ref="0"></joint>
+
+          <body name="tibia" pos="       0        0        0" quat="1.0 0.0 0.0 0.0">
+            <geom name="tibia" type="mesh" mesh="tibia"></geom>
+            <inertial pos="       0    0.015        0" mass="0.02" fullinertia="1.62e-06  2.5e-07 1.62e-06        0        0        0"></inertial>
+			<joint name="knee_flx_translation3" type="slide" pos="0 0 0" axis="       0        0        1" limited="true" range="-0.00370751 -0.0037075" ref="0"></joint>
+			<joint name="knee_flx_translation2" type="slide" pos="0 0 0" axis="       0        1        0" limited="true" range="-0.07131 -0.07130" ref="0"></joint>
+			<joint name="knee_flx_translation1" type="slide" pos="0 0 0" axis="       1        0        0" limited="true" range="-0.00011 -0.0001" ref="0"></joint>
+            <joint name="knee_flx" type="hinge" pos="-0.003 0.038 0" axis="       0        0        1" limited="true" range="-2.61799 -0.349066" ref="0"></joint>
+            <joint name="knee_flx_rotation2" type="hinge" pos="0 0 0" axis="       1        0        0" limited="true" range="-0.087074 0.0644507" ref="0"></joint>
+            <joint name="knee_flx_rotation3" type="hinge" pos="0 0 0" axis="       0        1        0" limited="true" range="0.261798 0.261799" ref="0"></joint>
+            <body name="foot" pos="       0        0        0" quat="1.0 0.0 0.0 0.0">
+              <geom name="foot" type="mesh" mesh="foot"></geom>
+              <inertial pos="   0.007   -0.005        0" mass="0.02" fullinertia=" 2.5e-07 1.62e-06 1.62e-06        0        0        0"></inertial>
+              <joint name="ankle_flx_translation3" type="slide" pos="0 0 0" axis="       0        0        1" limited="true" range="       0        0.00000001" ref="0"></joint>
+              <joint name="ankle_flx_translation2" type="slide" pos="0 0 0" axis="       0        1        0" limited="true" range="       0        0.00000001" ref="0"></joint>
+              <joint name="ankle_flx_translation1" type="slide" pos="0 0 0" axis="       1        0        0" limited="true" range="       0        0.00000001" ref="0"></joint>
+              <joint name="ankle_flx" type="hinge" pos="0 0 0" axis="       0        0        1" limited="true" range="-0.523599   1.0472" ref="0"></joint>
+              <joint name="ankle_add" type="hinge" pos="0 0 0" axis="       1        0        0" limited="true" range="-0.0872665 0.610865" ref="0"></joint>
+              <joint name="ankle_int" type="hinge" pos="0 0 0" axis="       0        1        0" limited="true" range="-0.872665 0.261799" ref="0"></joint>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+    <camera name="for_testing" pos="0 0 0" euler="0 0 0"></camera>
+  </worldbody>
+  <asset>
+    <mesh name="spine" file="Geometry/spine.stl" scale="       1        1        1"></mesh>
+    <mesh name="pelvis" file="Geometry/pelvis.stl" scale="       1        1        1"></mesh>
+    <mesh name="femur" file="Geometry/femur.stl" scale="       1        1        1"></mesh>
+    <mesh name="tibia" file="Geometry/tibia.stl" scale="       1        1        1"></mesh>
+    <mesh name="foot" file="Geometry/foot.stl" scale="       1        1        1"></mesh>
+    <texture name="texplane" type="2d" builtin="checker" rgb1=".2 .3 .4" rgb2=".1 0.15 0.2" width="100" height="100"></texture>
+    <material name="MatPlane" reflectance="0.0" texture="texplane" texrepeat="1 1" texuniform="true"></material>
+    <texture type="skybox" builtin="gradient" rgb1="1 1 1" rgb2=".6 .8 1" width="256" height="256" />
+  </asset>
+  <tendon>
+    <spatial name="Ext_tendon">
+      <site site="Hip_Ext_Pelvis"></site>
+      <site site="Hip_Ext_Femur"></site>
+    </spatial>
+    <spatial name="Flx_tendon">
+      <site site="Hip_Flx_Pelvis"></site>
+      <site site="Hip_Flx_Femur"></site>
+    </spatial>
+  </tendon>
+  <actuator>
+    <muscle name="Extensor" tendon="Ext_tendon" class="muscle"/>
+    <muscle name="Flexor" tendon="Flx_tendon" class="muscle"/>
+    <!-- <muscle name=" " tendon="Flx_tendon" class="muscle"/> -->
+  </actuator>
+  <equality>
+    <joint name="sacroiliac_flx_constraint" active="false" joint1="sacroiliac_flx" polycoef="0.0645772        0        0        0        0"></joint>
+    <joint name="knee_flx_translation3_constraint" active="false" joint1="knee_flx_translation3" joint2="knee_flx" polycoef="-0.0039476 2.93474e-05 0.0022295 0.00050098 1.14254e-08" solimp="0.9999 0.9999 0.001 0.5 2"></joint>
+    <joint name="knee_flx_translation2_constraint" active="false" joint1="knee_flx_translation2" joint2="knee_flx" polycoef="-0.0716295 0.00263982 0.0274601 0.00665864 0.000226098" solimp="0.9999 0.9999 0.001 0.5 2"></joint>
+    <joint name="knee_flx_translation1_constraint" active="false" joint1="knee_flx_translation1" joint2="knee_flx" polycoef="-0.000895537 0.0431518 0.00242887 -0.00708937 -0.00116912" solimp="0.9999 0.9999 0.001 0.5 2"></joint>
+    <joint name="knee_flx_rotation2_constraint" active="true" joint1="knee_flx_rotation2" joint2="knee_flx" polycoef="0.0893452 0.0736091 0.00771735 0.00349496 0.00055574" solimp="0.9999 0.9999 0.001 0.5 2"></joint>
+    <joint name="knee_flx_rotation3_constraint" active="true" joint1="knee_flx_rotation3" joint2="knee_flx" polycoef="0.261799 -2.3141e-15 -1.74501e-15 -5.89556e-16 -6.28369e-17" solimp="0.9999 0.9999 0.001 0.5 2"></joint>
+    <joint name="ankle_flx_translation3_constraint" active="true" joint1="ankle_flx_translation3" joint2="ankle_flx" polycoef="       0        0        0        0        0" solimp="0.9999 0.9999 0.001 0.5 2"></joint>
+    <joint name="ankle_flx_translation2_constraint" active="true" joint1="ankle_flx_translation2" joint2="ankle_flx" polycoef="       0        0        0        0        0" solimp="0.9999 0.9999 0.001 0.5 2"></joint>
+    <joint name="ankle_flx_translation1_constraint" active="true" joint1="ankle_flx_translation1" joint2="ankle_flx" polycoef="       0        0        0        0        0" solimp="0.9999 0.9999 0.001 0.5 2"></joint>
+    <weld name="origin_to_worldbody" body1="pelvis" active="true"></weld>
+  </equality>
+  <keyframe>
+    <key time="0.0" qpos='-3.25839e-05 0.00202488 -0.00370786 -0.0694889 -0.0153676 -0.348793 0.0644695 0.261799 1.25344e-08 -1.43187e-07 1.1033e-08 -0.000490811 -7.1755e-05 -0.000100531'/>
+  </keyframe>
+</mujoco>
